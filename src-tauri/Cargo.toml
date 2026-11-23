@@ -1,0 +1,36 @@
+[package]
+name = "antigravity-switch"
+version = "0.1.0"
+description = "Lightweight cross-platform account switcher, quota monitor, context/speed viewer, and No-TUN proxy launcher for Google Antigravity"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/AnnaSuSu/antigravity-switch"
+
+[lib]
+name = "antigravity_switch_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon", "image-png", "macos-private-api"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json", "socks"] }
+rusqlite = { version = "0.32", features = ["bundled"] }
+base64 = "0.22"
+sha2 = "0.10"
+chrono = { version = "0.4", features = ["serde"] }
+dirs = "6"
+url = "2"
+open = "5"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.59", features = ["Win32_Foundation", "Win32_Security_Credentials"] }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+objc2 = "0.6"
+objc2-foundation = { version = "0.3", default-features = false, features = ["std", "NSArray", "NSGeometry", "NSString"] }
+objc2-app-kit = { version = "0.3", default-features = false, features = ["std", "NSControl", "NSEvent", "NSGlassEffectView", "NSResponder", "NSScreen", "NSStatusBarButton", "NSStatusItem", "NSView", "NSVisualEffectView", "NSWindow"] }
